@@ -1,0 +1,89 @@
+#include <Arduino.h>
+
+#include "network.h"
+#include "ecc.h"
+
+char PREFIX[200] = "/topic/";
+char INIT_TOPIC[200] = "/topic/dispatch/init";
+char POST_TOPIC[200] = "/topic/dispatch/post";
+char TXN_HASH_TOPIC[200] = "";
+char BATCH_HASH_TOPIC[200] = "";
+char TXN_SIG_TOPIC[200] = "";
+char BATCH_SIG_TOPIC[200] = "";
+
+void setTopics() {
+    Serial.println("Initializing topics...");
+
+    strcat(PREFIX, (char *)pubKeyHex);
+    Serial.print("Prefix set: ");
+    Serial.println(PREFIX);
+
+    strcpy(TXN_HASH_TOPIC, PREFIX);
+    strcat(TXN_HASH_TOPIC, "/txnHash");
+    Serial.print("Txn Hash topic set: ");
+    Serial.println(TXN_HASH_TOPIC);
+
+    strcpy(BATCH_HASH_TOPIC, PREFIX);
+    strcat(BATCH_HASH_TOPIC, "/batchHash");
+    Serial.print("Batch Hash topic set: ");
+    Serial.println(BATCH_HASH_TOPIC);
+
+    strcpy(TXN_SIG_TOPIC, PREFIX);
+    strcat(TXN_SIG_TOPIC, "/txnSig");
+    Serial.print("Txn Sig topic set: ");
+    Serial.println(TXN_SIG_TOPIC);
+
+    strcpy(BATCH_SIG_TOPIC, PREFIX);
+    strcat(BATCH_SIG_TOPIC, "/batchSig");
+    Serial.print("Batch Sig topic set: ");
+    Serial.println(BATCH_SIG_TOPIC);
+
+    if (mqttClient.subscribe(TXN_HASH_TOPIC) && mqttClient.subscribe(BATCH_HASH_TOPIC)) {
+        Serial.println("Subscribed to hash topics");
+    } else {
+        Serial.println("Subscription error, please restart");
+    }
+}
+
+void handleMessage(const char* topic, uint8_t* payload, unsigned int length) {
+    char *payloadHex = (char *)malloc(150);
+    char *sigHex = (char *)malloc(150);
+    memset(sigHex, 0, 150);
+    memset(payloadHex, 0, 150);
+
+    if (strcmp(topic, TXN_HASH_TOPIC) == 0) {
+        Serial.print("Received transaction hash: ");
+        Serial.println(payloadHex);
+        signHash(payload, sigHex);
+        mqttClient.publish(TXN_SIG_TOPIC, sigHex);
+        Serial.print("Published transaction signature: ");
+        Serial.println(sigHex);
+    } else if (strcmp(topic, BATCH_HASH_TOPIC) == 0) {
+        Serial.print("Received batch hash: ");
+        Serial.println(payloadHex);
+        signHash(payload, sigHex);
+        mqttClient.publish(BATCH_SIG_TOPIC, sigHex);
+        Serial.print("Published batch signature: ");
+        Serial.println(sigHex);
+    } else {
+        Serial.println("No known handler for received message");
+    }
+
+    free(payloadHex);
+    free(sigHex);
+}
+
+void testRun() {
+    char testData[200] = "{\"publicKey\":\"";
+    strcat(testData, (char *)pubKeyHex);
+    strcat(testData, "\",\"key\":\"");
+    strcat(testData, (char *)pubKeyHex);
+    strcat(testData, "\",\"data\":\"esp32-1 test\"}");
+
+    mqttClient.publish(INIT_TOPIC, testData);
+}
+
+void start() {
+    mqttClient.setCallback(handleMessage);
+    testRun();
+}

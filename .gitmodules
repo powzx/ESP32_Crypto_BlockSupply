@@ -1,0 +1,3 @@
+[submodule "lib/secp256k1-embedded"]
+	path = lib/secp256k1-embedded
+	url = https://github.com/diybitcoinhardware/secp256k1-embedded.git
