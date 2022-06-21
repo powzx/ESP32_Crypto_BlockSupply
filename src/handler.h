@@ -3,6 +3,8 @@
 #include "network.h"
 #include "ecc.h"
 
+char serialNum[5] = "1792";
+
 char PREFIX[200] = "/topic/";
 char INIT_TOPIC[200] = "/topic/dispatch/init";
 char POST_TOPIC[200] = "/topic/dispatch/post";
@@ -73,17 +75,37 @@ void handleMessage(const char* topic, uint8_t* payload, unsigned int length) {
     free(sigHex);
 }
 
-void testRun() {
-    char testData[200] = "{\"publicKey\":\"";
-    strcat(testData, (char *)pubKeyHex);
-    strcat(testData, "\",\"key\":\"");
-    strcat(testData, (char *)pubKeyHex);
-    strcat(testData, "\",\"data\":\"esp32-1 test\"}");
+void initChip() {
+    Serial.println("Initializing chip with its public key...");
 
-    mqttClient.publish(INIT_TOPIC, testData);
+    char payload[200] = "{\"publicKey\":\"";
+    strcat(payload, (char *)pubKeyHex);
+    strcat(payload, "\",\"key\":\"");
+    strcat(payload, (char *)pubKeyHex);
+    strcat(payload, "\",\"data\":\"esp32-1 test\"}"); 
+
+    mqttClient.publish(INIT_TOPIC, payload);
+}
+
+void sendTempData() {
+    Serial.println("Sending new temperature data...");
+
+    int temp = random(0, 20);
+    char tempBuf[3];
+    itoa(temp, tempBuf, 10);
+
+    char payload[200] = "{\"publicKey\":\"";
+    strcat(payload, (char *)pubKeyHex);
+    strcat(payload, "\",\"key\":\"");
+    strcat(payload, serialNum);
+    strcat(payload, "\",\"data\":\"");
+    strcat(payload, tempBuf);
+    strcat(payload, "\"}");
+
+    mqttClient.publish(POST_TOPIC, payload);
 }
 
 void start() {
     mqttClient.setCallback(handleMessage);
-    testRun();
+    initChip();
 }
