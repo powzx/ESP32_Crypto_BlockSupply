@@ -18,8 +18,8 @@ void setup() {
 void loop() {
   mqttClient.loop();
 
-  // send temperature data every 20 seconds
-  if (millis() - lastPostTime > 20000) {
+  // send temperature data every 30 seconds
+  if (millis() - lastPostTime > 30000) {
     sendSensedData();
     lastPostTime = millis();
   }
