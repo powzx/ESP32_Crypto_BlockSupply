@@ -4,6 +4,8 @@
 
 #include "data.h"
 
+const char *id = "ESP32-1";
+
 WiFiClientSecure secureClient;
 PubSubClient mqttClient(secureClient);
 
@@ -29,7 +31,7 @@ void initNetwork() {
     secureClient.setPrivateKey(CLIENT_KEY);
 
     mqttClient.setServer(MQTT_SERVER, 8883);
-    mqttClient.connect("ESP32-1");
+    mqttClient.connect(id);
     Serial.print("Connected to MQTT Broker ");
     Serial.println(MQTT_SERVER);
 

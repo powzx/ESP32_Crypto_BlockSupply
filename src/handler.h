@@ -1,8 +1,9 @@
 #include <Arduino.h>
 
-#include "network.h"
+#include "epoch.h"
 #include "ecc.h"
 
+// Will be implemented to load this value using Bluetooth
 char serialNum[5] = "1792";
 
 char PREFIX[200] = "/topic/";
@@ -87,20 +88,32 @@ void initChip() {
     mqttClient.publish(INIT_TOPIC, payload);
 }
 
-void sendTempData() {
-    Serial.println("Sending new temperature data...");
+void sendSensedData() {
+    Serial.println("Sending new sensed data...");
 
     int temp = random(0, 20);
     char tempBuf[3];
     itoa(temp, tempBuf, 10);
 
+    int humidity = random(20, 80);
+    char humidityBuf[3];
+    itoa(humidity, humidityBuf, 10);
+
+    unsigned long currentTime = getTimeSinceEpoch();
+    char currentTimeBuffer[11];
+    ltoa(currentTime, currentTimeBuffer, 10);
+
     char payload[200] = "{\"publicKey\":\"";
     strcat(payload, (char *)pubKeyHex);
     strcat(payload, "\",\"key\":\"");
     strcat(payload, serialNum);
-    strcat(payload, "\",\"data\":\"");
+    strcat(payload, "\",\"data\":{\"time\":\"");
+    strcat(payload, currentTimeBuffer);
+    strcat(payload, "\",\"temp\":\"");
     strcat(payload, tempBuf);
-    strcat(payload, "\"}");
+    strcat(payload, "\",\"humidity\":\"");
+    strcat(payload, humidityBuf);
+    strcat(payload, "\"}}");
 
     mqttClient.publish(POST_TOPIC, payload);
 }

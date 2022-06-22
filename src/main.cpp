@@ -10,6 +10,7 @@ void setup() {
   initNetwork();
   initECCKeys();
   setTopics();
+  initNtp();
 
   start();
 }
@@ -19,7 +20,7 @@ void loop() {
 
   // send temperature data every 20 seconds
   if (millis() - lastPostTime > 20000) {
-    sendTempData();
+    sendSensedData();
     lastPostTime = millis();
   }
 
