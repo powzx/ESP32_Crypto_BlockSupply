@@ -54,6 +54,8 @@ void handleMessage(const char* topic, uint8_t* payload, unsigned int length) {
     memset(sigHex, 0, 150);
     memset(payloadHex, 0, 150);
 
+    bytesToHex(payload, 32, payloadHex);
+
     if (strcmp(topic, TXN_HASH_TOPIC) == 0) {
         Serial.print("Received transaction hash: ");
         Serial.println(payloadHex);
