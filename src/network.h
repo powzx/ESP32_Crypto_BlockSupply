@@ -4,8 +4,6 @@
 
 #include "data.h"
 
-const char *id = "ESP32-1";
-
 WiFiClientSecure secureClient;
 PubSubClient mqttClient(secureClient);
 

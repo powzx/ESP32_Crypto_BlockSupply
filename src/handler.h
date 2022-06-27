@@ -3,9 +3,6 @@
 #include "epoch.h"
 #include "ecc.h"
 
-// Will be implemented to load this value using Bluetooth
-char serialNum[5] = "1792";
-
 char PREFIX[200] = "/topic/";
 char INIT_TOPIC[200] = "/topic/dispatch/init";
 char POST_TOPIC[200] = "/topic/dispatch/post";
@@ -85,7 +82,9 @@ void initChip() {
     strcat(payload, (char *)pubKeyHex);
     strcat(payload, "\",\"key\":\"");
     strcat(payload, (char *)pubKeyHex);
-    strcat(payload, "\",\"data\":\"esp32-1 test\"}"); 
+    strcat(payload, "\",\"data\":\""); 
+    strcat(payload, (char *)id);
+    strcat(payload, "\"}");
 
     mqttClient.publish(INIT_TOPIC, payload);
 }
