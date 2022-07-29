@@ -124,3 +124,4 @@ static const char *CLIENT_CRT = "-----BEGIN CERTIFICATE-----\n" \
 
 ## Useful Links
 [Setting up PlatformIO for ESP32](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/)
+[Secp256k1 ECDSA Key Generator](https://paulmillr.com/noble/)
