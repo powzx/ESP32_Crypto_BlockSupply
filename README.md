@@ -137,16 +137,16 @@ Connected to MQTT Broker 192.168.11.109
 Initializing Elliptic Curve ...
 SECP256K1 context preallocated with size 704 bytes
 SECP256K1 context created
-Private key: bdb51a16eb6460ec16f84d7b6f19e20d9b9ab558fa0e9ae4bb493ef779f14055
-Public key: 020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d
+Private key: ee7f7f2ea63f6610efdd5224ea7b80f1fde7968a703d04d8f2aa2fbb9d2887e7
+Public key: 03b84ef14ce69cb00f50e51d2f99405747befd84d54d666735f5c677df3b932e3b
 Key is valid
 Elliptic curve initialized.
 Initializing topics...
-Prefix set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d
-Txn Hash topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/txnHash
-Batch Hash topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/batchHash
-Txn Sig topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/txnSig
-Batch Sig topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/batchSig
+Prefix set: /topic/03b84ef14ce69cb00f50e51d2f99405747befd84d54d666735f5c677df3b932e3b
+Txn Hash topic set: /topic/03b84ef14ce69cb00f50e51d2f99405747befd84d54d666735f5c677df3b932e3b/txnHash
+Batch Hash topic set: /topic/03b84ef14ce69cb00f50e51d2f99405747befd84d54d666735f5c677df3b932e3b/batchHash
+Txn Sig topic set: /topic/03b84ef14ce69cb00f50e51d2f99405747befd84d54d666735f5c677df3b932e3b/txnSig
+Batch Sig topic set: /topic/03b84ef14ce69cb00f50e51d2f99405747befd84d54d666735f5c677df3b932e3b/batchSig
 Subscribed to hash topics
 Initializing chip with its public key...
 ```
