@@ -7,6 +7,14 @@ VS Code with PlatformIO extension installed.
 ## Hardware
 DOIT ESP32 DEVKIT V1 on the Arduino framework.
 
+## Key Generation
+
+1. Generate a random valid private key on the secp256k1 ECDSA elliptic curve [here](https://paulmillr.com/noble/).
+
+![](docs/images/key_generation.png)
+
+2. Copy the 64-character hexadecimal representation of the private key as an array of bytes `privKey` as shown in data.h below.
+
 ## Setting up and getting started
 1. Fork the repository and clone into your computer.
 2. Navigate to the ESP32_Crypto_BlockSupply directory.
@@ -142,14 +150,6 @@ Initializing chip with its public key...
 ```
 
 Please take note of the public key of the ESP32 shown in the serial monitor as you may need it to create policies as on-chain settings on the Sawtooth network.
-
-## Key Generation
-
-1. Generate a random valid private key on the secp256k1 ECDSA elliptic curve [here](https://paulmillr.com/noble/).
-
-![](docs/images/key_generation.png)
-
-2. Copy the 64-character hexadecimal representation of the private key as an array of bytes `privKey` as shown in data.h above.
 
 ## Useful Links
 [Setting up PlatformIO for ESP32](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/)
