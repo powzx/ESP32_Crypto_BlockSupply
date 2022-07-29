@@ -15,6 +15,8 @@ DOIT ESP32 DEVKIT V1 on the Arduino framework.
 
 2. Copy the 64-character hexadecimal representation of the private key as an array of bytes `privKey` as shown in data.h below.
 
+3. Take note of the 66-character hexadecimal representation of the public key as shown in the '33b hex' field as you may need it to set policies as on-chain settings on the Sawtooth network later on.
+
 ## Setting up and getting started
 1. Fork the repository and clone into your computer.
 2. Navigate to the ESP32_Crypto_BlockSupply directory.
@@ -148,8 +150,6 @@ Batch Sig topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b3
 Subscribed to hash topics
 Initializing chip with its public key...
 ```
-
-Please take note of the public key of the ESP32 shown in the serial monitor as you may need it to create policies as on-chain settings on the Sawtooth network.
 
 ## Useful Links
 [Setting up PlatformIO for ESP32](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/)
