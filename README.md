@@ -120,7 +120,36 @@ static const char *CLIENT_CRT = "-----BEGIN CERTIFICATE-----\n" \
 
 4. Build the project.
 5. Connect the ESP32 to your computer and start the serial monitor.
-6. Upload the project to the ESP32.
+6. Upload the project to the ESP32 and observe the serial monitor. You may view the expected output below:
+
+```
+Connected to MQTT Broker 192.168.11.109
+Initializing Elliptic Curve ...
+SECP256K1 context preallocated with size 704 bytes
+SECP256K1 context created
+Private key: bdb51a16eb6460ec16f84d7b6f19e20d9b9ab558fa0e9ae4bb493ef779f14055
+Public key: 020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d
+Key is valid
+Elliptic curve initialized.
+Initializing topics...
+Prefix set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d
+Txn Hash topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/txnHash
+Batch Hash topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/batchHash
+Txn Sig topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/txnSig
+Batch Sig topic set: /topic/020c4a51e895deb4903ca0641b28f9887b8013604310654a34b35407d336d85c8d/batchSig
+Subscribed to hash topics
+Initializing chip with its public key...
+```
+
+Please take note of the public key of the ESP32 shown in the serial monitor as you may need it to create policies as on-chain settings on the Sawtooth network.
+
+## Key Generation
+
+1. Generate a random valid private key on the secp256k1 ECDSA elliptic curve [here](https://paulmillr.com/noble/).
+
+![](docs/images/key_generation.png)
+
+2. Copy the 64-character hexadecimal representation of the private key as an array of bytes `privKey` as shown in data.h above.
 
 ## Useful Links
 [Setting up PlatformIO for ESP32](https://randomnerdtutorials.com/vs-code-platformio-ide-esp32-esp8266-arduino/)
